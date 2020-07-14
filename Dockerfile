@@ -1,4 +1,4 @@
-FROM ruby:2.3-slim
+FROM ruby:2.5-slim
 
 RUN apt update && apt install -qq -y --no-install-recommends \
     build-essential nodejs libpq-dev
@@ -10,7 +10,5 @@ RUN mkdir -p $INSTALL_PATH
 WORKDIR $INSTALL_PATH
 
 COPY Gemfile ./
-
-ENV BUNDLE_PATH /box
 
 COPY . .

@@ -1,11 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe TalksController, type: :controller do
-    include Device::Test::ControllerHelpers
+    include Devise::Test::ControllerHelpers
 
     before(:each) do
         request.env['HTTP_ACCEPT'] = 'application/json'
-        request.env['devise.mapping'] = Device.mappings[:user]
+        request.env['devise.mapping'] = Devise.mappings[:user]
         @current_user = FactoryBot.create(:user)
         sign_in @current_user
     end
@@ -18,7 +18,7 @@ RSpec.describe TalksController, type: :controller do
                 @team = create(:team)
                 @guest_user = create(:user)
                 @team.users << @guest_user
-                @talk = create(talk, user_one: @current_user, user_two: @guest_user, team: @team)
+                @talk = create(:talk, user_one: @current_user, user_two: @guest_user, team: @team)
 
                 @message1 = build(:message)
                 @message2 = build(:message)
@@ -54,7 +54,7 @@ RSpec.describe TalksController, type: :controller do
                 @team = create(:team)
                 @guest_user = create(:user)
                 @team.users << @guest_user
-                @talk = create(talk, user_two: @guest_user, team: @team)
+                @talk = create(:talk, user_two: @guest_user, team: @team)
 
                 get :show, params: {id: @guest_user.id, team_id: @team.id}
             end

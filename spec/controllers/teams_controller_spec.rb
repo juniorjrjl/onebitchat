@@ -30,7 +30,7 @@ RSpec.describe TeamsController, type: :controller do
 
             context 'User is member of the team' do
                 it 'Returns success' do
-                    team = create(:user)
+                    team = create(:team)
                     team.users << @current_user
                     get :show, params: {slug: team.slug}
 

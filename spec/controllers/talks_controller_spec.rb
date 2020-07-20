@@ -27,6 +27,10 @@ RSpec.describe TalksController, type: :controller do
                 get :show, params: {id: @guest_user.id, team_id: @team.id}
             end
 
+            it 'returns http success' do
+                expect(response).to have_http_status(:success)
+            end
+
             it 'Return the right params' do
                 response_hash = JSON.parse(response.body)
 

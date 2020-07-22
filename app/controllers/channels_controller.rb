@@ -19,7 +19,7 @@ class ChannelsController < ApplicationController
 		@channel.destroy
 
 		respond_to do |f|
-			f.json{ head :no_content }
+			f.json{ render json: true }
 		end
 	end
 

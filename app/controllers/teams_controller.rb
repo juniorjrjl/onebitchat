@@ -3,7 +3,6 @@ class TeamsController < ApplicationController
 	before_action :set_by_slug_team, only: [:show]
 	
 	def index
-		@teams = current_user.teams
 	end
 
 	def show
@@ -27,7 +26,7 @@ class TeamsController < ApplicationController
 		@team.destroy
 
 		respond_to do |f|
-			f.json{ head :no_content }
+			f.json{ render json: true }
 		end
 	end
 

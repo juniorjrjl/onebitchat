@@ -11,6 +11,13 @@ class TalksController < ApplicationController
 		@talk = Talk.find_by(user_one_id: [params[:id], current_user.id], 
 							user_two_id: [params[:id], current_user.id],
 							team: params[:team_id])
+		unless @talk
+			@team = Team.fin(params[:team_id])
+			@user = User.find(params[:id])
+			if @team.my_user.include? current_user and @team.my_user.include? @user
+				@talk = Talk.create(user_one: current_user, user_two: @user, team: @team)
+			end
+		end
 	end
 
 end

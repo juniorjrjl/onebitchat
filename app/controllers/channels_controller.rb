@@ -16,7 +16,7 @@ class ChannelsController < ApplicationController
 
 	def destroy
 		authorize! :destroy, @channel
-		@channel.destroy
+		#@channel.destroy
 
 		respond_to do |f|
 			f.json{ render json: true }

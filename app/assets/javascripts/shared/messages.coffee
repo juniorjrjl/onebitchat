@@ -5,7 +5,7 @@ clean_messages = () ->
 	$('.messages').html('')
 	$('.chat_name').html('')
 
-add_message = (message, message_data, name) ->
+window.add_message = (message, message_data, name) ->
 	$('.messages').append('<div class="message col s12">' +
 						'<div class="col m2|1">' +
 						'<i class="material-icons prefix right profile_icon">account_circle</i>' +
@@ -17,6 +17,7 @@ add_message = (message, message_data, name) ->
 						'<div class="row">' + message + '</div>'
 						'</div>' +
 						'</div>')
+	$('.messages').animate({ scrollTop: $('.messages').prop("scrollHeight")}, 100);
 
 window.open = (id, type) ->
 	clean_messages()
@@ -26,26 +27,23 @@ window.open = (id, type) ->
 		dataType: 'json',
 		data: {team_id: $('.team_id').val()}
 		success: (data, text, jqXHR) ->
-			if type == "talks"
-				set_chat(data['user']['name'])
-			else
-				set_chat(data['slug'])
+			set_chat(if type == "talks" then data['user']['name'] else data['slug'])
+			window.change_chat(id, type, $('.team_id').val())
 
 			if (data['messages'])
 				for m in data['messages']
 					do ->
-						add_message(m['body'], m['date'], m['user']['name'])
-
+						window.add_message(m['body'], m['date'], m['user']['name'])
 		error: (jqXHR, textStatus, errorThrown) ->
-			Materialize.toast('Problem to get' + type + 'informations &nbsp;<b>:(</b>', 4000, 'red')
+			Materialize.toast('Problem to get ' + type + ' informations &nbsp;<b>:(</b>', 4000, 'red')
 	return false
 
 window.add = (slug, id, type) ->
 	additional = if type == "channel" then "#" else ""
-	$('.' + type + 's').prepend('<li class="'+ type + '_' + id + '">' +
+	$('.' + type + 's').prepend('<li class="' + type + '_' + id + '">' +
 								'<div>' +
-								'<a>' +
-								'<span id="' + id +'">' + additional + slug + '</span>' +
+								'<a href="#" class="open_' + type + '">' +
+								'<span id="' + id + '">' + additional + slug + '</span>' +
 								'</a>' +
 								'<a class="right remove_' + type + '" href="#" id="' + id + '">' +
 								'<i class="material-icons" id="' + id + '">settings</i>' +

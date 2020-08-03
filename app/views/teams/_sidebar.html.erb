@@ -13,7 +13,6 @@
 		<div class="divider"></div>
 	</li>
 	<li class="">
-		<!-- <span class="channel_title">Channels</span> -->
 		<ul class="collapsible" data-collapsible="accordion">
 			<li>
 				<div class="collapsible-header"><i class="material-icons">list</i>Channels</div>
@@ -23,13 +22,13 @@
 							<% @team.channels.each do |c| %>
 								<li class="channel_<%= c.id %>">
 									<div>
-										<a href="#" class="open_channel">
+										<a href="#" class="open_channel" id="<%= c.id %>">
 											<span id="<%= c.id %>">#<%= c.slug %></span>
 										</a>
 										<% if can? :destroy, c %>
-										<a class="right remove_channel" href="#" id="<%= c.id %>">
-											<i class="material-icons" id="<%= c.id %>">settings</i>
-										</a>
+											<a class="right remove_channel" href="#" id="<%= c.id %>">
+												<i class="material-icons" id="<%= c.id %>">settings</i>
+											</a>
 										<% end %>
 									</div>
 								</li>
@@ -82,6 +81,13 @@
 										</div>
 									</li>
 								<% end %>
+								<li>
+									<div>
+										<a href="#" class="leave_team red btn" id="<%= current_user.id %>">
+											<span id="<%= current_user.id%>">Leave Team</span>
+										</a>
+									</div>
+								</li>
 							</ul>
 						</span>
 					</span>

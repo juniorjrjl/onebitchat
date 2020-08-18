@@ -17,6 +17,8 @@ class TeamUsersController < ApplicationController
 	def destroy
 		authorize! :destroy, @team_user
 		@team_user.destroy
+		invite = Invite.find_by(status: :accepted, recipient_id: current_user.id, team_id: @team_user.team_id)
+		InviteChangeStatus.new().set_disabled(invite)
 
 		respond_to do |f|
 			f.json{ render json: true}

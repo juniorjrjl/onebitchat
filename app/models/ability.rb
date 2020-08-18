@@ -27,6 +27,10 @@ class Ability
 			can [:destroy], TeamUser do |t|
 				t.team.user_id == user.id || t.team.users.where(id: user.id).present?
 			end
+
+			can [:create], Invite do |i|
+				i.sender.id == user.id
+			end
 		end
 	end
 end

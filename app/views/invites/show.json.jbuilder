@@ -1,0 +1,1 @@
+json.partial! "invites/invites", invite: @invite

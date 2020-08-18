@@ -23,4 +23,32 @@
 		<h5>Create one now and empower your team!</h5>
 		<a class="btn modal-trigger" href="#add_team_modal">New Team</a>
 	<% end %>
+	<% if current_user.has_pending_invites%>
+	<h5>Your Pending invites</h5>
+	<div class="row">
+		<ul class="collection col m4 offset-m4 s10 offset-s1">
+			<% current_user.my_pending_invites.each do |i|%>
+				<li class="collection-item dismissable">
+					<div>
+						<%= i.team.slug %>
+							<div class="row">
+								<div class="col s2">
+									<a href="/invites/<%= i.id %>/accept" data-method="put"
+										class="secondary-content">
+										<i class="material-icons">thumb_up</i>
+									</a>
+								</div>
+								<div class="col s10">
+									<a href="/invites/<%= i.id %>/reject" data-method="put"
+										class="secondary-content icon_red">
+										<i class="material-icons">thumb_down</i>
+									</a>
+								</div>
+							</div>
+					</div>
+				</li>
+			<% end %>
+		</ul>
+	</div>
+<% end %>
 </div>

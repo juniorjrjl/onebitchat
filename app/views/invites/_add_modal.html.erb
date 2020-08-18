@@ -1,0 +1,19 @@
+<div id="send_invite_modal" class="modal">
+	<div class="modal-content">
+		<div class="row">
+			<%= form_tag("invites", :method => :post, class: "col s12 send_invite_form") do %>
+				<div class="row">
+					<div class="col s12">
+						<h4>Invite a User</h4>
+					</div>
+					<div class="input-field col s12">
+						<%= hidden_field(:invite, :team_id) %>
+						<%= text_field(:invite, :recipient_email) %>
+						<%= label_tag(:email, "User Email") %>
+						<%= submit_tag("Send Invite", class: "btn right") %>
+					</div>
+				</div>
+			<% end %>
+		</div>
+	</div>
+</div>

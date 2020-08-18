@@ -8,6 +8,8 @@ services:
         environment: 
             - POSTGRES_USERNAME=postgres
             - POSTGRES_PASSWORD=postgres
+        ports: 
+            - 5432:5432
         
     redis:
         image: 'redis:3.2-alpine'

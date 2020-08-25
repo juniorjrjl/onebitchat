@@ -1,6 +1,6 @@
 class ChatChannel < ApplicationCable::Channel
-	delegate :ablity, to: :connection
-	protected :ablity
+	delegate :ability, to: :connection
+	protected :ability
 
 	def subscribed
 		if authorize_and_set_chat
@@ -20,10 +20,10 @@ class ChatChannel < ApplicationCable::Channel
 			@record = Channel.find(params[:id])
 		elsif params[:type] == "talks"
 			@record = Talk.find_by(user_one_id: [params[:id], current_user.id],
-								   user_one_id: [params[:id], current_user.id],
+								   user_two_id: [params[:id], current_user.id],
 								   team: params[:team_id])
 		end
 		@chat = @record.id
-		(ablity.can? :read, @record)? true : false
+		(ability.can? :read, @record)? true : false
 	end
 end
